@@ -1,7 +1,17 @@
+<<<<<<< HEAD
 /* SPDX-License-Identifier: GPL-2.0-only */
 /*
  * max6697.h
  *     Copyright (c) 2012 Guenter Roeck <linux@roeck-us.net>
+=======
+/*
+ * max6697.h
+ *     Copyright (c) 2012 Guenter Roeck <linux@roeck-us.net>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+>>>>>>> lkd/master
  */
 
 #ifndef MAX6697_H

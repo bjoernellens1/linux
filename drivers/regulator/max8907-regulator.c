@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-only
+=======
+>>>>>>> lkd/master
 /*
  * max8907-regulator.c -- support regulators in max8907
  *
@@ -9,6 +12,13 @@
  *     Copyright 2010 Texas Instruments Inc.
  *     Author: Graeme Gregory <gg@slimlogic.co.uk>
  *     Author: Jorge Eduardo Candelaria <jedu@slimlogic.co.uk>
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+>>>>>>> lkd/master
  */
 
 #include <linux/err.h>
@@ -109,7 +119,11 @@ struct max8907_regulator {
 static const struct regulator_ops max8907_mbatt_ops = {
 };
 
+<<<<<<< HEAD
 static const struct regulator_ops max8907_ldo_ops = {
+=======
+static struct regulator_ops max8907_ldo_ops = {
+>>>>>>> lkd/master
 	.list_voltage = regulator_list_voltage_linear,
 	.set_voltage_sel = regulator_set_voltage_sel_regmap,
 	.get_voltage_sel = regulator_get_voltage_sel_regmap,
@@ -128,7 +142,11 @@ static const struct regulator_ops max8907_fixed_ops = {
 	.list_voltage = regulator_list_voltage_linear,
 };
 
+<<<<<<< HEAD
 static const struct regulator_ops max8907_out5v_ops = {
+=======
+static struct regulator_ops max8907_out5v_ops = {
+>>>>>>> lkd/master
 	.list_voltage = regulator_list_voltage_linear,
 	.enable = regulator_enable_regmap,
 	.disable = regulator_disable_regmap,
@@ -145,7 +163,11 @@ static const struct regulator_ops max8907_bbat_ops = {
 	.get_voltage_sel = regulator_get_voltage_sel_regmap,
 };
 
+<<<<<<< HEAD
 static const struct regulator_desc max8907_regulators[] = {
+=======
+static struct regulator_desc max8907_regulators[] = {
+>>>>>>> lkd/master
 	REG_MBATT(),
 	REG_LDO(SD1, "in-v1", MAX8907_REG_SDCTL1, 650000, 2225000, 25000),
 	REG_LDO(SD2, "in-v2", MAX8907_REG_SDCTL2, 637500, 1425000, 12500),
@@ -296,10 +318,14 @@ static int max8907_regulator_probe(struct platform_device *pdev)
 	memcpy(pmic->desc, max8907_regulators, sizeof(pmic->desc));
 
 	/* Backwards compatibility with MAX8907B; SD1 uses different voltages */
+<<<<<<< HEAD
 	ret = regmap_read(max8907->regmap_gen, MAX8907_REG_II2RR, &val);
 	if (ret)
 		return ret;
 
+=======
+	regmap_read(max8907->regmap_gen, MAX8907_REG_II2RR, &val);
+>>>>>>> lkd/master
 	if ((val & MAX8907_II2RR_VERSION_MASK) ==
 	    MAX8907_II2RR_VERSION_REV_B) {
 		pmic->desc[MAX8907_SD1].min_uV = 637500;
@@ -336,20 +362,30 @@ static int max8907_regulator_probe(struct platform_device *pdev)
 		}
 
 		if (pmic->desc[i].ops == &max8907_ldo_ops) {
+<<<<<<< HEAD
 			ret = regmap_read(config.regmap, pmic->desc[i].enable_reg,
 				    &val);
 			if (ret)
 				return ret;
 
+=======
+			regmap_read(config.regmap, pmic->desc[i].enable_reg,
+				    &val);
+>>>>>>> lkd/master
 			if ((val & MAX8907_MASK_LDO_SEQ) !=
 			    MAX8907_MASK_LDO_SEQ)
 				pmic->desc[i].ops = &max8907_ldo_hwctl_ops;
 		} else if (pmic->desc[i].ops == &max8907_out5v_ops) {
+<<<<<<< HEAD
 			ret = regmap_read(config.regmap, pmic->desc[i].enable_reg,
 				    &val);
 			if (ret)
 				return ret;
 
+=======
+			regmap_read(config.regmap, pmic->desc[i].enable_reg,
+				    &val);
+>>>>>>> lkd/master
 			if ((val & (MAX8907_MASK_OUT5V_VINEN |
 						MAX8907_MASK_OUT5V_ENSRC)) !=
 			    MAX8907_MASK_OUT5V_ENSRC)

@@ -1,8 +1,28 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-or-later
+=======
+>>>>>>> lkd/master
 /*
  * Hardware monitoring driver for Maxim MAX8688
  *
  * Copyright (c) 2011 Ericsson AB.
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+>>>>>>> lkd/master
  */
 
 #include <linux/bitops.h>
@@ -28,8 +48,12 @@
 #define MAX8688_STATUS_OT_FAULT		BIT(13)
 #define MAX8688_STATUS_OT_WARNING	BIT(14)
 
+<<<<<<< HEAD
 static int max8688_read_word_data(struct i2c_client *client, int page,
 				  int phase, int reg)
+=======
+static int max8688_read_word_data(struct i2c_client *client, int page, int reg)
+>>>>>>> lkd/master
 {
 	int ret;
 
@@ -38,6 +62,7 @@ static int max8688_read_word_data(struct i2c_client *client, int page,
 
 	switch (reg) {
 	case PMBUS_VIRT_READ_VOUT_MAX:
+<<<<<<< HEAD
 		ret = pmbus_read_word_data(client, 0, 0xff,
 					   MAX8688_MFR_VOUT_PEAK);
 		break;
@@ -47,6 +72,15 @@ static int max8688_read_word_data(struct i2c_client *client, int page,
 		break;
 	case PMBUS_VIRT_READ_TEMP_MAX:
 		ret = pmbus_read_word_data(client, 0, 0xff,
+=======
+		ret = pmbus_read_word_data(client, 0, MAX8688_MFR_VOUT_PEAK);
+		break;
+	case PMBUS_VIRT_READ_IOUT_MAX:
+		ret = pmbus_read_word_data(client, 0, MAX8688_MFR_IOUT_PEAK);
+		break;
+	case PMBUS_VIRT_READ_TEMP_MAX:
+		ret = pmbus_read_word_data(client, 0,
+>>>>>>> lkd/master
 					   MAX8688_MFR_TEMPERATURE_PEAK);
 		break;
 	case PMBUS_VIRT_RESET_VOUT_HISTORY:
@@ -97,7 +131,11 @@ static int max8688_read_byte_data(struct i2c_client *client, int page, int reg)
 
 	switch (reg) {
 	case PMBUS_STATUS_VOUT:
+<<<<<<< HEAD
 		mfg_status = pmbus_read_word_data(client, 0, 0xff,
+=======
+		mfg_status = pmbus_read_word_data(client, 0,
+>>>>>>> lkd/master
 						  MAX8688_MFG_STATUS);
 		if (mfg_status < 0)
 			return mfg_status;
@@ -111,7 +149,11 @@ static int max8688_read_byte_data(struct i2c_client *client, int page, int reg)
 			ret |= PB_VOLTAGE_OV_FAULT;
 		break;
 	case PMBUS_STATUS_IOUT:
+<<<<<<< HEAD
 		mfg_status = pmbus_read_word_data(client, 0, 0xff,
+=======
+		mfg_status = pmbus_read_word_data(client, 0,
+>>>>>>> lkd/master
 						  MAX8688_MFG_STATUS);
 		if (mfg_status < 0)
 			return mfg_status;
@@ -123,7 +165,11 @@ static int max8688_read_byte_data(struct i2c_client *client, int page, int reg)
 			ret |= PB_IOUT_OC_FAULT;
 		break;
 	case PMBUS_STATUS_TEMPERATURE:
+<<<<<<< HEAD
 		mfg_status = pmbus_read_word_data(client, 0, 0xff,
+=======
+		mfg_status = pmbus_read_word_data(client, 0,
+>>>>>>> lkd/master
 						  MAX8688_MFG_STATUS);
 		if (mfg_status < 0)
 			return mfg_status;
@@ -165,9 +211,16 @@ static struct pmbus_driver_info max8688_info = {
 	.write_word_data = max8688_write_word_data,
 };
 
+<<<<<<< HEAD
 static int max8688_probe(struct i2c_client *client)
 {
 	return pmbus_do_probe(client, &max8688_info);
+=======
+static int max8688_probe(struct i2c_client *client,
+			 const struct i2c_device_id *id)
+{
+	return pmbus_do_probe(client, id, &max8688_info);
+>>>>>>> lkd/master
 }
 
 static const struct i2c_device_id max8688_id[] = {
@@ -182,7 +235,11 @@ static struct i2c_driver max8688_driver = {
 	.driver = {
 		   .name = "max8688",
 		   },
+<<<<<<< HEAD
 	.probe_new = max8688_probe,
+=======
+	.probe = max8688_probe,
+>>>>>>> lkd/master
 	.remove = pmbus_do_remove,
 	.id_table = max8688_id,
 };

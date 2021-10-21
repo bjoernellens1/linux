@@ -1,8 +1,18 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-only
+=======
+>>>>>>> lkd/master
 /*
  * max98095.c -- MAX98095 ALSA SoC Audio driver
  *
  * Copyright 2011 Maxim Integrated Products
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+>>>>>>> lkd/master
  */
 
 #include <linux/module.h>
@@ -971,7 +981,11 @@ static int max98095_dai1_hw_params(struct snd_pcm_substream *substream,
 	cdata->rate = rate;
 
 	/* Configure NI when operating as master */
+<<<<<<< HEAD
 	if (snd_soc_component_read(component, M98095_02A_DAI1_FORMAT) & M98095_DAI_MAS) {
+=======
+	if (snd_soc_component_read32(component, M98095_02A_DAI1_FORMAT) & M98095_DAI_MAS) {
+>>>>>>> lkd/master
 		if (max98095->sysclk == 0) {
 			dev_err(component->dev, "Invalid system clock frequency\n");
 			return -EINVAL;
@@ -1032,7 +1046,11 @@ static int max98095_dai2_hw_params(struct snd_pcm_substream *substream,
 	cdata->rate = rate;
 
 	/* Configure NI when operating as master */
+<<<<<<< HEAD
 	if (snd_soc_component_read(component, M98095_034_DAI2_FORMAT) & M98095_DAI_MAS) {
+=======
+	if (snd_soc_component_read32(component, M98095_034_DAI2_FORMAT) & M98095_DAI_MAS) {
+>>>>>>> lkd/master
 		if (max98095->sysclk == 0) {
 			dev_err(component->dev, "Invalid system clock frequency\n");
 			return -EINVAL;
@@ -1093,7 +1111,11 @@ static int max98095_dai3_hw_params(struct snd_pcm_substream *substream,
 	cdata->rate = rate;
 
 	/* Configure NI when operating as master */
+<<<<<<< HEAD
 	if (snd_soc_component_read(component, M98095_03E_DAI3_FORMAT) & M98095_DAI_MAS) {
+=======
+	if (snd_soc_component_read32(component, M98095_03E_DAI3_FORMAT) & M98095_DAI_MAS) {
+>>>>>>> lkd/master
 		if (max98095->sysclk == 0) {
 			dev_err(component->dev, "Invalid system clock frequency\n");
 			return -EINVAL;
@@ -1534,7 +1556,11 @@ static int max98095_put_eq_enum(struct snd_kcontrol *kcontrol,
 	regmask = (channel == 0) ? M98095_EQ1EN : M98095_EQ2EN;
 
 	/* Disable filter while configuring, and save current on/off state */
+<<<<<<< HEAD
 	regsave = snd_soc_component_read(component, M98095_088_CFG_LEVEL);
+=======
+	regsave = snd_soc_component_read32(component, M98095_088_CFG_LEVEL);
+>>>>>>> lkd/master
 	snd_soc_component_update_bits(component, M98095_088_CFG_LEVEL, regmask, 0);
 
 	mutex_lock(&max98095->lock);
@@ -1685,7 +1711,11 @@ static int max98095_put_bq_enum(struct snd_kcontrol *kcontrol,
 	regmask = (channel == 0) ? M98095_BQ1EN : M98095_BQ2EN;
 
 	/* Disable filter while configuring, and save current on/off state */
+<<<<<<< HEAD
 	regsave = snd_soc_component_read(component, M98095_088_CFG_LEVEL);
+=======
+	regsave = snd_soc_component_read32(component, M98095_088_CFG_LEVEL);
+>>>>>>> lkd/master
 	snd_soc_component_update_bits(component, M98095_088_CFG_LEVEL, regmask, 0);
 
 	mutex_lock(&max98095->lock);
@@ -1816,7 +1846,11 @@ static irqreturn_t max98095_report_jack(int irq, void *data)
 	int mic_report = 0;
 
 	/* Read the Jack Status Register */
+<<<<<<< HEAD
 	value = snd_soc_component_read(component, M98095_007_JACK_AUTO_STS);
+=======
+	value = snd_soc_component_read32(component, M98095_007_JACK_AUTO_STS);
+>>>>>>> lkd/master
 
 	/* If ddone is not set, then detection isn't finished yet */
 	if ((value & M98095_DDONE) == 0)
@@ -1972,7 +2006,11 @@ static int max98095_reset(struct snd_soc_component *component)
 	/* Reset to hardware default for registers, as there is not
 	 * a soft reset hardware control register */
 	for (i = M98095_010_HOST_INT_CFG; i < M98095_REG_MAX_CACHED; i++) {
+<<<<<<< HEAD
 		ret = snd_soc_component_write(component, i, snd_soc_component_read(component, i));
+=======
+		ret = snd_soc_component_write(component, i, snd_soc_component_read32(component, i));
+>>>>>>> lkd/master
 		if (ret < 0) {
 			dev_err(component->dev, "Failed to reset: %d\n", ret);
 			return ret;
@@ -2038,7 +2076,11 @@ static int max98095_probe(struct snd_soc_component *component)
 		}
 	}
 
+<<<<<<< HEAD
 	ret = snd_soc_component_read(component, M98095_0FF_REV_ID);
+=======
+	ret = snd_soc_component_read32(component, M98095_0FF_REV_ID);
+>>>>>>> lkd/master
 	if (ret < 0) {
 		dev_err(component->dev, "Failure reading hardware revision: %d\n",
 			ret);

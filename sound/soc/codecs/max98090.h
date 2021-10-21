@@ -1,8 +1,18 @@
+<<<<<<< HEAD
 /* SPDX-License-Identifier: GPL-2.0-only */
+=======
+>>>>>>> lkd/master
 /*
  * max98090.h -- MAX98090 ALSA SoC Audio driver
  *
  * Copyright 2011-2012 Maxim Integrated Products
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+>>>>>>> lkd/master
  */
 
 #ifndef _MAX98090_H
@@ -1530,6 +1540,10 @@ struct max98090_priv {
 	struct delayed_work jack_work;
 	struct delayed_work pll_det_enable_work;
 	struct work_struct pll_det_disable_work;
+<<<<<<< HEAD
+=======
+	struct work_struct pll_work;
+>>>>>>> lkd/master
 	struct snd_soc_jack *jack;
 	unsigned int dai_fmt;
 	int tdm_slots;

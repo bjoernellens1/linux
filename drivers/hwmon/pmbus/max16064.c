@@ -1,8 +1,28 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-or-later
+=======
+>>>>>>> lkd/master
 /*
  * Hardware monitoring driver for Maxim MAX16064
  *
  * Copyright (c) 2011 Ericsson AB.
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+>>>>>>> lkd/master
  */
 
 #include <linux/kernel.h>
@@ -15,18 +35,30 @@
 #define MAX16064_MFR_VOUT_PEAK		0xd4
 #define MAX16064_MFR_TEMPERATURE_PEAK	0xd6
 
+<<<<<<< HEAD
 static int max16064_read_word_data(struct i2c_client *client, int page,
 				   int phase, int reg)
+=======
+static int max16064_read_word_data(struct i2c_client *client, int page, int reg)
+>>>>>>> lkd/master
 {
 	int ret;
 
 	switch (reg) {
 	case PMBUS_VIRT_READ_VOUT_MAX:
+<<<<<<< HEAD
 		ret = pmbus_read_word_data(client, page, phase,
 					   MAX16064_MFR_VOUT_PEAK);
 		break;
 	case PMBUS_VIRT_READ_TEMP_MAX:
 		ret = pmbus_read_word_data(client, page, phase,
+=======
+		ret = pmbus_read_word_data(client, page,
+					   MAX16064_MFR_VOUT_PEAK);
+		break;
+	case PMBUS_VIRT_READ_TEMP_MAX:
+		ret = pmbus_read_word_data(client, page,
+>>>>>>> lkd/master
 					   MAX16064_MFR_TEMPERATURE_PEAK);
 		break;
 	case PMBUS_VIRT_RESET_VOUT_HISTORY:
@@ -85,9 +117,16 @@ static struct pmbus_driver_info max16064_info = {
 	.write_word_data = max16064_write_word_data,
 };
 
+<<<<<<< HEAD
 static int max16064_probe(struct i2c_client *client)
 {
 	return pmbus_do_probe(client, &max16064_info);
+=======
+static int max16064_probe(struct i2c_client *client,
+			  const struct i2c_device_id *id)
+{
+	return pmbus_do_probe(client, id, &max16064_info);
+>>>>>>> lkd/master
 }
 
 static const struct i2c_device_id max16064_id[] = {
@@ -102,7 +141,11 @@ static struct i2c_driver max16064_driver = {
 	.driver = {
 		   .name = "max16064",
 		   },
+<<<<<<< HEAD
 	.probe_new = max16064_probe,
+=======
+	.probe = max16064_probe,
+>>>>>>> lkd/master
 	.remove = pmbus_do_remove,
 	.id_table = max16064_id,
 };

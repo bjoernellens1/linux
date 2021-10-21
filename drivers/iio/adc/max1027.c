@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-only
+=======
+>>>>>>> lkd/master
  /*
   * iio/adc/max1027.c
   * Copyright (C) 2014 Philippe Reynes
@@ -7,6 +10,13 @@
   * Copyright 2011 Analog Devices Inc (from AD7923 Driver)
   * Copyright 2012 CS Systemes d'Information
   *
+<<<<<<< HEAD
+=======
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License version 2 as
+  * published by the Free Software Foundation.
+  *
+>>>>>>> lkd/master
   * max1027.c
   *
   * Partial support for max1027 and similar chips.
@@ -14,7 +24,10 @@
 
 #include <linux/kernel.h>
 #include <linux/module.h>
+<<<<<<< HEAD
 #include <linux/mod_devicetable.h>
+=======
+>>>>>>> lkd/master
 #include <linux/spi/spi.h>
 #include <linux/delay.h>
 
@@ -64,26 +77,37 @@ enum max1027_id {
 	max1027,
 	max1029,
 	max1031,
+<<<<<<< HEAD
 	max1227,
 	max1229,
 	max1231,
+=======
+>>>>>>> lkd/master
 };
 
 static const struct spi_device_id max1027_id[] = {
 	{"max1027", max1027},
 	{"max1029", max1029},
 	{"max1031", max1031},
+<<<<<<< HEAD
 	{"max1227", max1227},
 	{"max1229", max1229},
 	{"max1231", max1231},
+=======
+>>>>>>> lkd/master
 	{}
 };
 MODULE_DEVICE_TABLE(spi, max1027_id);
 
+<<<<<<< HEAD
+=======
+#ifdef CONFIG_OF
+>>>>>>> lkd/master
 static const struct of_device_id max1027_adc_dt_ids[] = {
 	{ .compatible = "maxim,max1027" },
 	{ .compatible = "maxim,max1029" },
 	{ .compatible = "maxim,max1031" },
+<<<<<<< HEAD
 	{ .compatible = "maxim,max1227" },
 	{ .compatible = "maxim,max1229" },
 	{ .compatible = "maxim,max1231" },
@@ -92,6 +116,14 @@ static const struct of_device_id max1027_adc_dt_ids[] = {
 MODULE_DEVICE_TABLE(of, max1027_adc_dt_ids);
 
 #define MAX1027_V_CHAN(index, depth)					\
+=======
+	{},
+};
+MODULE_DEVICE_TABLE(of, max1027_adc_dt_ids);
+#endif
+
+#define MAX1027_V_CHAN(index)						\
+>>>>>>> lkd/master
 	{								\
 		.type = IIO_VOLTAGE,					\
 		.indexed = 1,						\
@@ -101,7 +133,11 @@ MODULE_DEVICE_TABLE(of, max1027_adc_dt_ids);
 		.scan_index = index + 1,				\
 		.scan_type = {						\
 			.sign = 'u',					\
+<<<<<<< HEAD
 			.realbits = depth,				\
+=======
+			.realbits = 10,					\
+>>>>>>> lkd/master
 			.storagebits = 16,				\
 			.shift = 2,					\
 			.endianness = IIO_BE,				\
@@ -123,6 +159,7 @@ MODULE_DEVICE_TABLE(of, max1027_adc_dt_ids);
 		},							\
 	}
 
+<<<<<<< HEAD
 #define MAX1X27_CHANNELS(depth)			\
 	MAX1027_T_CHAN,				\
 	MAX1027_V_CHAN(0, depth),		\
@@ -171,6 +208,54 @@ static const struct iio_chan_spec max1229_channels[] = {
 
 static const struct iio_chan_spec max1231_channels[] = {
 	MAX1X31_CHANNELS(12),
+=======
+static const struct iio_chan_spec max1027_channels[] = {
+	MAX1027_T_CHAN,
+	MAX1027_V_CHAN(0),
+	MAX1027_V_CHAN(1),
+	MAX1027_V_CHAN(2),
+	MAX1027_V_CHAN(3),
+	MAX1027_V_CHAN(4),
+	MAX1027_V_CHAN(5),
+	MAX1027_V_CHAN(6),
+	MAX1027_V_CHAN(7)
+};
+
+static const struct iio_chan_spec max1029_channels[] = {
+	MAX1027_T_CHAN,
+	MAX1027_V_CHAN(0),
+	MAX1027_V_CHAN(1),
+	MAX1027_V_CHAN(2),
+	MAX1027_V_CHAN(3),
+	MAX1027_V_CHAN(4),
+	MAX1027_V_CHAN(5),
+	MAX1027_V_CHAN(6),
+	MAX1027_V_CHAN(7),
+	MAX1027_V_CHAN(8),
+	MAX1027_V_CHAN(9),
+	MAX1027_V_CHAN(10),
+	MAX1027_V_CHAN(11)
+};
+
+static const struct iio_chan_spec max1031_channels[] = {
+	MAX1027_T_CHAN,
+	MAX1027_V_CHAN(0),
+	MAX1027_V_CHAN(1),
+	MAX1027_V_CHAN(2),
+	MAX1027_V_CHAN(3),
+	MAX1027_V_CHAN(4),
+	MAX1027_V_CHAN(5),
+	MAX1027_V_CHAN(6),
+	MAX1027_V_CHAN(7),
+	MAX1027_V_CHAN(8),
+	MAX1027_V_CHAN(9),
+	MAX1027_V_CHAN(10),
+	MAX1027_V_CHAN(11),
+	MAX1027_V_CHAN(12),
+	MAX1027_V_CHAN(13),
+	MAX1027_V_CHAN(14),
+	MAX1027_V_CHAN(15)
+>>>>>>> lkd/master
 };
 
 static const unsigned long max1027_available_scan_masks[] = {
@@ -210,6 +295,7 @@ static const struct max1027_chip_info max1027_chip_info_tbl[] = {
 		.num_channels = ARRAY_SIZE(max1031_channels),
 		.available_scan_masks = max1031_available_scan_masks,
 	},
+<<<<<<< HEAD
 	[max1227] = {
 		.channels = max1227_channels,
 		.num_channels = ARRAY_SIZE(max1227_channels),
@@ -225,6 +311,8 @@ static const struct max1027_chip_info max1027_chip_info_tbl[] = {
 		.num_channels = ARRAY_SIZE(max1231_channels),
 		.available_scan_masks = max1031_available_scan_masks,
 	},
+=======
+>>>>>>> lkd/master
 };
 
 struct max1027_state {
@@ -309,7 +397,11 @@ static int max1027_read_raw(struct iio_dev *indio_dev,
 			break;
 		case IIO_VOLTAGE:
 			*val = 2500;
+<<<<<<< HEAD
 			*val2 = chan->scan_type.realbits;
+=======
+			*val2 = 10;
+>>>>>>> lkd/master
 			ret = IIO_VAL_FRACTIONAL_LOG2;
 			break;
 		default:
@@ -334,11 +426,16 @@ static int max1027_debugfs_reg_access(struct iio_dev *indio_dev,
 	struct max1027_state *st = iio_priv(indio_dev);
 	u8 *val = (u8 *)st->buffer;
 
+<<<<<<< HEAD
 	if (readval) {
 		int ret = spi_read(st->spi, val, 2);
 		*readval = be16_to_cpu(st->buffer[0]);
 		return ret;
 	}
+=======
+	if (readval != NULL)
+		return -EINVAL;
+>>>>>>> lkd/master
 
 	*val = (u8)writeval;
 	return spi_write(st->spi, val, 1);
@@ -439,6 +536,11 @@ static int max1027_probe(struct spi_device *spi)
 	mutex_init(&st->lock);
 
 	indio_dev->name = spi_get_device_id(spi)->name;
+<<<<<<< HEAD
+=======
+	indio_dev->dev.parent = &spi->dev;
+	indio_dev->dev.of_node = spi->dev.of_node;
+>>>>>>> lkd/master
 	indio_dev->info = &max1027_info;
 	indio_dev->modes = INDIO_DIRECT_MODE;
 	indio_dev->channels = st->info->channels;
@@ -453,6 +555,7 @@ static int max1027_probe(struct spi_device *spi)
 		return -ENOMEM;
 	}
 
+<<<<<<< HEAD
 	if (spi->irq) {
 		ret = devm_iio_triggered_buffer_setup(&spi->dev, indio_dev,
 						      &iio_pollfunc_store_time,
@@ -501,6 +604,36 @@ static int max1027_probe(struct spi_device *spi)
 	if (ret < 0) {
 		dev_err(&indio_dev->dev, "Failed to reset the ADC\n");
 		return ret;
+=======
+	ret = iio_triggered_buffer_setup(indio_dev, &iio_pollfunc_store_time,
+					 &max1027_trigger_handler, NULL);
+	if (ret < 0) {
+		dev_err(&indio_dev->dev, "Failed to setup buffer\n");
+		return ret;
+	}
+
+	st->trig = devm_iio_trigger_alloc(&spi->dev, "%s-trigger",
+							indio_dev->name);
+	if (st->trig == NULL) {
+		ret = -ENOMEM;
+		dev_err(&indio_dev->dev, "Failed to allocate iio trigger\n");
+		goto fail_trigger_alloc;
+	}
+
+	st->trig->ops = &max1027_trigger_ops;
+	st->trig->dev.parent = &spi->dev;
+	iio_trigger_set_drvdata(st->trig, indio_dev);
+	iio_trigger_register(st->trig);
+
+	ret = devm_request_threaded_irq(&spi->dev, spi->irq,
+					iio_trigger_generic_data_rdy_poll,
+					NULL,
+					IRQF_TRIGGER_FALLING,
+					spi->dev.driver->name, st->trig);
+	if (ret < 0) {
+		dev_err(&indio_dev->dev, "Failed to allocate IRQ.\n");
+		goto fail_dev_register;
+>>>>>>> lkd/master
 	}
 
 	/* Disable averaging */
@@ -508,22 +641,64 @@ static int max1027_probe(struct spi_device *spi)
 	ret = spi_write(st->spi, &st->reg, 1);
 	if (ret < 0) {
 		dev_err(&indio_dev->dev, "Failed to configure averaging register\n");
+<<<<<<< HEAD
 		return ret;
 	}
 
 	return devm_iio_device_register(&spi->dev, indio_dev);
+=======
+		goto fail_dev_register;
+	}
+
+	ret = iio_device_register(indio_dev);
+	if (ret < 0) {
+		dev_err(&indio_dev->dev, "Failed to register iio device\n");
+		goto fail_dev_register;
+	}
+
+	return 0;
+
+fail_dev_register:
+fail_trigger_alloc:
+	iio_triggered_buffer_cleanup(indio_dev);
+
+	return ret;
+}
+
+static int max1027_remove(struct spi_device *spi)
+{
+	struct iio_dev *indio_dev = spi_get_drvdata(spi);
+
+	pr_debug("%s: remove(spi = 0x%p)\n", __func__, spi);
+
+	iio_device_unregister(indio_dev);
+	iio_triggered_buffer_cleanup(indio_dev);
+
+	return 0;
+>>>>>>> lkd/master
 }
 
 static struct spi_driver max1027_driver = {
 	.driver = {
 		.name	= "max1027",
+<<<<<<< HEAD
 		.of_match_table = max1027_adc_dt_ids,
 	},
 	.probe		= max1027_probe,
+=======
+		.of_match_table = of_match_ptr(max1027_adc_dt_ids),
+	},
+	.probe		= max1027_probe,
+	.remove		= max1027_remove,
+>>>>>>> lkd/master
 	.id_table	= max1027_id,
 };
 module_spi_driver(max1027_driver);
 
 MODULE_AUTHOR("Philippe Reynes <tremyfr@yahoo.fr>");
+<<<<<<< HEAD
 MODULE_DESCRIPTION("MAX1X27/MAX1X29/MAX1X31 ADC");
+=======
+MODULE_DESCRIPTION("MAX1027/MAX1029/MAX1031 ADC");
+>>>>>>> lkd/master
 MODULE_LICENSE("GPL v2");

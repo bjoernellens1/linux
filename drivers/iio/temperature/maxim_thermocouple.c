@@ -10,11 +10,16 @@
 #include <linux/init.h>
 #include <linux/mutex.h>
 #include <linux/err.h>
+<<<<<<< HEAD
 #include <linux/of.h>
 #include <linux/of_device.h>
 #include <linux/spi/spi.h>
 #include <linux/iio/iio.h>
 #include <linux/iio/sysfs.h>
+=======
+#include <linux/spi/spi.h>
+#include <linux/iio/iio.h>
+>>>>>>> lkd/master
 #include <linux/iio/trigger.h>
 #include <linux/iio/buffer.h>
 #include <linux/iio/triggered_buffer.h>
@@ -25,6 +30,7 @@
 enum {
 	MAX6675,
 	MAX31855,
+<<<<<<< HEAD
 	MAX31855K,
 	MAX31855J,
 	MAX31855N,
@@ -36,14 +42,20 @@ enum {
 
 static const char maxim_tc_types[] = {
 	'K', '?', 'K', 'J', 'N', 'S', 'T', 'E', 'R'
+=======
+>>>>>>> lkd/master
 };
 
 static const struct iio_chan_spec max6675_channels[] = {
 	{	/* thermocouple temperature */
 		.type = IIO_TEMP,
 		.info_mask_separate =
+<<<<<<< HEAD
 			BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE) |
 			BIT(IIO_CHAN_INFO_THERMOCOUPLE_TYPE),
+=======
+			BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE),
+>>>>>>> lkd/master
 		.scan_index = 0,
 		.scan_type = {
 			.sign = 's',
@@ -61,8 +73,12 @@ static const struct iio_chan_spec max31855_channels[] = {
 		.type = IIO_TEMP,
 		.address = 2,
 		.info_mask_separate =
+<<<<<<< HEAD
 			BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE) |
 			BIT(IIO_CHAN_INFO_THERMOCOUPLE_TYPE),
+=======
+			BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE),
+>>>>>>> lkd/master
 		.scan_index = 0,
 		.scan_type = {
 			.sign = 's',
@@ -124,7 +140,10 @@ struct maxim_thermocouple_data {
 	const struct maxim_thermocouple_chip *chip;
 
 	u8 buffer[16] ____cacheline_aligned;
+<<<<<<< HEAD
 	char tc_type;
+=======
+>>>>>>> lkd/master
 };
 
 static int maxim_thermocouple_read(struct maxim_thermocouple_data *data,
@@ -209,11 +228,15 @@ static int maxim_thermocouple_read_raw(struct iio_dev *indio_dev,
 		default:
 			*val = 250; /* 1000 * 0.25 */
 			ret = IIO_VAL_INT;
+<<<<<<< HEAD
 		}
 		break;
 	case IIO_CHAN_INFO_THERMOCOUPLE_TYPE:
 		*val = data->tc_type;
 		ret = IIO_VAL_CHAR;
+=======
+		};
+>>>>>>> lkd/master
 		break;
 	}
 
@@ -229,9 +252,14 @@ static int maxim_thermocouple_probe(struct spi_device *spi)
 	const struct spi_device_id *id = spi_get_device_id(spi);
 	struct iio_dev *indio_dev;
 	struct maxim_thermocouple_data *data;
+<<<<<<< HEAD
 	const int chip_type = (id->driver_data == MAX6675) ? MAX6675 : MAX31855;
 	const struct maxim_thermocouple_chip *chip =
 		&maxim_thermocouple_chips[chip_type];
+=======
+	const struct maxim_thermocouple_chip *chip =
+			&maxim_thermocouple_chips[id->driver_data];
+>>>>>>> lkd/master
 	int ret;
 
 	indio_dev = devm_iio_device_alloc(&spi->dev, sizeof(*data));
@@ -244,27 +272,60 @@ static int maxim_thermocouple_probe(struct spi_device *spi)
 	indio_dev->available_scan_masks = chip->scan_masks;
 	indio_dev->num_channels = chip->num_channels;
 	indio_dev->modes = INDIO_DIRECT_MODE;
+<<<<<<< HEAD
+=======
+	indio_dev->dev.parent = &spi->dev;
+>>>>>>> lkd/master
 
 	data = iio_priv(indio_dev);
 	data->spi = spi;
 	data->chip = chip;
+<<<<<<< HEAD
 	data->tc_type = maxim_tc_types[id->driver_data];
 
 	ret = devm_iio_triggered_buffer_setup(&spi->dev,
 				indio_dev, NULL,
+=======
+
+	ret = iio_triggered_buffer_setup(indio_dev, NULL,
+>>>>>>> lkd/master
 				maxim_thermocouple_trigger_handler, NULL);
 	if (ret)
 		return ret;
 
+<<<<<<< HEAD
 	if (id->driver_data == MAX31855)
 		dev_warn(&spi->dev, "generic max31855 ID is deprecated\nplease use more specific part type");
 
 	return devm_iio_device_register(&spi->dev, indio_dev);
+=======
+	ret = iio_device_register(indio_dev);
+	if (ret)
+		goto error_unreg_buffer;
+
+	return 0;
+
+error_unreg_buffer:
+	iio_triggered_buffer_cleanup(indio_dev);
+
+	return ret;
+}
+
+static int maxim_thermocouple_remove(struct spi_device *spi)
+{
+	struct iio_dev *indio_dev = spi_get_drvdata(spi);
+
+	iio_device_unregister(indio_dev);
+	iio_triggered_buffer_cleanup(indio_dev);
+
+	return 0;
+>>>>>>> lkd/master
 }
 
 static const struct spi_device_id maxim_thermocouple_id[] = {
 	{"max6675", MAX6675},
 	{"max31855", MAX31855},
+<<<<<<< HEAD
 	{"max31855k", MAX31855K},
 	{"max31855j", MAX31855J},
 	{"max31855n", MAX31855N},
@@ -272,10 +333,14 @@ static const struct spi_device_id maxim_thermocouple_id[] = {
 	{"max31855t", MAX31855T},
 	{"max31855e", MAX31855E},
 	{"max31855r", MAX31855R},
+=======
+	{"max31856", MAX31855},
+>>>>>>> lkd/master
 	{},
 };
 MODULE_DEVICE_TABLE(spi, maxim_thermocouple_id);
 
+<<<<<<< HEAD
 static const struct of_device_id maxim_thermocouple_of_match[] = {
         { .compatible = "maxim,max6675" },
         { .compatible = "maxim,max31855" },
@@ -296,6 +361,14 @@ static struct spi_driver maxim_thermocouple_driver = {
 		.of_match_table = maxim_thermocouple_of_match,
 	},
 	.probe		= maxim_thermocouple_probe,
+=======
+static struct spi_driver maxim_thermocouple_driver = {
+	.driver = {
+		.name	= MAXIM_THERMOCOUPLE_DRV_NAME,
+	},
+	.probe		= maxim_thermocouple_probe,
+	.remove		= maxim_thermocouple_remove,
+>>>>>>> lkd/master
 	.id_table	= maxim_thermocouple_id,
 };
 module_spi_driver(maxim_thermocouple_driver);

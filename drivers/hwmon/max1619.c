@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-or-later
+=======
+>>>>>>> lkd/master
 /*
  * max1619.c - Part of lm_sensors, Linux kernel modules for hardware
  *             monitoring
@@ -10,6 +13,19 @@
  * one external one). Complete datasheet can be
  * obtained from Maxim's website at:
  *   http://pdfserv.maxim-ic.com/en/ds/MAX1619.pdf
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+>>>>>>> lkd/master
  */
 
 #include <linux/module.h>
@@ -136,7 +152,11 @@ static struct max1619_data *max1619_update_device(struct device *dev)
  * Sysfs stuff
  */
 
+<<<<<<< HEAD
 static ssize_t temp_show(struct device *dev, struct device_attribute *devattr,
+=======
+static ssize_t show_temp(struct device *dev, struct device_attribute *devattr,
+>>>>>>> lkd/master
 			 char *buf)
 {
 	struct sensor_device_attribute *attr = to_sensor_dev_attr(devattr);
@@ -145,9 +165,14 @@ static ssize_t temp_show(struct device *dev, struct device_attribute *devattr,
 	return sprintf(buf, "%d\n", temp_from_reg(data->temp[attr->index]));
 }
 
+<<<<<<< HEAD
 static ssize_t temp_store(struct device *dev,
 			  struct device_attribute *devattr, const char *buf,
 			  size_t count)
+=======
+static ssize_t set_temp(struct device *dev, struct device_attribute *devattr,
+			   const char *buf, size_t count)
+>>>>>>> lkd/master
 {
 	struct sensor_device_attribute *attr = to_sensor_dev_attr(devattr);
 	struct max1619_data *data = dev_get_drvdata(dev);
@@ -172,7 +197,11 @@ static ssize_t alarms_show(struct device *dev, struct device_attribute *attr,
 	return sprintf(buf, "%d\n", data->alarms);
 }
 
+<<<<<<< HEAD
 static ssize_t alarm_show(struct device *dev, struct device_attribute *attr,
+=======
+static ssize_t show_alarm(struct device *dev, struct device_attribute *attr,
+>>>>>>> lkd/master
 			  char *buf)
 {
 	int bitnr = to_sensor_dev_attr(attr)->index;
@@ -180,6 +209,7 @@ static ssize_t alarm_show(struct device *dev, struct device_attribute *attr,
 	return sprintf(buf, "%d\n", (data->alarms >> bitnr) & 1);
 }
 
+<<<<<<< HEAD
 static SENSOR_DEVICE_ATTR_RO(temp1_input, temp, t_input1);
 static SENSOR_DEVICE_ATTR_RO(temp2_input, temp, t_input2);
 static SENSOR_DEVICE_ATTR_RW(temp2_min, temp, t_low2);
@@ -192,6 +222,24 @@ static SENSOR_DEVICE_ATTR_RO(temp2_crit_alarm, alarm, 1);
 static SENSOR_DEVICE_ATTR_RO(temp2_fault, alarm, 2);
 static SENSOR_DEVICE_ATTR_RO(temp2_min_alarm, alarm, 3);
 static SENSOR_DEVICE_ATTR_RO(temp2_max_alarm, alarm, 4);
+=======
+static SENSOR_DEVICE_ATTR(temp1_input, S_IRUGO, show_temp, NULL, t_input1);
+static SENSOR_DEVICE_ATTR(temp2_input, S_IRUGO, show_temp, NULL, t_input2);
+static SENSOR_DEVICE_ATTR(temp2_min, S_IWUSR | S_IRUGO, show_temp, set_temp,
+			  t_low2);
+static SENSOR_DEVICE_ATTR(temp2_max, S_IWUSR | S_IRUGO, show_temp, set_temp,
+			  t_high2);
+static SENSOR_DEVICE_ATTR(temp2_crit, S_IWUSR | S_IRUGO, show_temp, set_temp,
+			  t_crit2);
+static SENSOR_DEVICE_ATTR(temp2_crit_hyst, S_IWUSR | S_IRUGO, show_temp,
+			  set_temp, t_hyst2);
+
+static DEVICE_ATTR_RO(alarms);
+static SENSOR_DEVICE_ATTR(temp2_crit_alarm, S_IRUGO, show_alarm, NULL, 1);
+static SENSOR_DEVICE_ATTR(temp2_fault, S_IRUGO, show_alarm, NULL, 2);
+static SENSOR_DEVICE_ATTR(temp2_min_alarm, S_IRUGO, show_alarm, NULL, 3);
+static SENSOR_DEVICE_ATTR(temp2_max_alarm, S_IRUGO, show_alarm, NULL, 4);
+>>>>>>> lkd/master
 
 static struct attribute *max1619_attrs[] = {
 	&sensor_dev_attr_temp1_input.dev_attr.attr,
@@ -261,7 +309,12 @@ static void max1619_init_client(struct i2c_client *client)
 					  config & 0xBF); /* run */
 }
 
+<<<<<<< HEAD
 static int max1619_probe(struct i2c_client *new_client)
+=======
+static int max1619_probe(struct i2c_client *new_client,
+			 const struct i2c_device_id *id)
+>>>>>>> lkd/master
 {
 	struct max1619_data *data;
 	struct device *hwmon_dev;
@@ -305,7 +358,11 @@ static struct i2c_driver max1619_driver = {
 		.name	= "max1619",
 		.of_match_table = of_match_ptr(max1619_of_match),
 	},
+<<<<<<< HEAD
 	.probe_new	= max1619_probe,
+=======
+	.probe		= max1619_probe,
+>>>>>>> lkd/master
 	.id_table	= max1619_id,
 	.detect		= max1619_detect,
 	.address_list	= normal_i2c,

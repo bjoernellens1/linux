@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-only
+=======
+>>>>>>> lkd/master
 /*
  * LED Flash class driver for the flash cell of max77693 mfd.
  *
@@ -6,6 +9,13 @@
  *
  *	Authors: Jacek Anaszewski <j.anaszewski@samsung.com>
  *		 Andrzej Hajda <a.hajda@samsung.com>
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * version 2 as published by the Free Software Foundation.
+>>>>>>> lkd/master
  */
 
 #include <linux/led-class-flash.h>
@@ -599,7 +609,11 @@ static int max77693_led_parse_dt(struct max77693_led_device *led,
 {
 	struct device *dev = &led->pdev->dev;
 	struct max77693_sub_led *sub_leds = led->sub_leds;
+<<<<<<< HEAD
 	struct device_node *node = dev_of_node(dev), *child_node;
+=======
+	struct device_node *node = dev->of_node, *child_node;
+>>>>>>> lkd/master
 	struct property *prop;
 	u32 led_sources[2];
 	int i, ret, fled_id;

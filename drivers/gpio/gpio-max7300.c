@@ -1,7 +1,17 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-only
 /*
  * Copyright (C) 2009 Wolfram Sang, Pengutronix
  *
+=======
+/*
+ * Copyright (C) 2009 Wolfram Sang, Pengutronix
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ *
+>>>>>>> lkd/master
  * Check max730x.c for further details.
  */
 

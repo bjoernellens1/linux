@@ -1,9 +1,28 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0+
 //
 // max14577_charger.c - Battery charger driver for the Maxim 14577/77836
 //
 // Copyright (C) 2013,2014 Samsung Electronics
 // Krzysztof Kozlowski <krzk@kernel.org>
+=======
+/*
+ * max14577_charger.c - Battery charger driver for the Maxim 14577/77836
+ *
+ * Copyright (C) 2013,2014 Samsung Electronics
+ * Krzysztof Kozlowski <krzk@kernel.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+>>>>>>> lkd/master
 
 #include <linux/module.h>
 #include <linux/platform_device.h>
@@ -623,6 +642,7 @@ static const struct platform_device_id max14577_charger_id[] = {
 };
 MODULE_DEVICE_TABLE(platform, max14577_charger_id);
 
+<<<<<<< HEAD
 static const struct of_device_id of_max14577_charger_dt_match[] = {
 	{ .compatible = "maxim,max14577-charger",
 	  .data = (void *)MAXIM_DEVICE_TYPE_MAX14577, },
@@ -636,6 +656,11 @@ static struct platform_driver max14577_charger_driver = {
 	.driver = {
 		.name	= "max14577-charger",
 		.of_match_table = of_max14577_charger_dt_match,
+=======
+static struct platform_driver max14577_charger_driver = {
+	.driver = {
+		.name	= "max14577-charger",
+>>>>>>> lkd/master
 	},
 	.probe		= max14577_charger_probe,
 	.remove		= max14577_charger_remove,

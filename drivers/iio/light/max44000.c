@@ -1,9 +1,19 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-only
+=======
+>>>>>>> lkd/master
 /*
  * MAX44000 Ambient and Infrared Proximity Sensor
  *
  * Copyright (c) 2016, Intel Corporation.
  *
+<<<<<<< HEAD
+=======
+ * This file is subject to the terms and conditions of version 2 of
+ * the GNU General Public License.  See the file COPYING in the main
+ * directory of this archive for more details.
+ *
+>>>>>>> lkd/master
  * Data sheet: https://datasheets.maximintegrated.com/en/ds/MAX44000.pdf
  *
  * 7-bit I2C slave address 0x4a
@@ -75,11 +85,14 @@
 struct max44000_data {
 	struct mutex lock;
 	struct regmap *regmap;
+<<<<<<< HEAD
 	/* Ensure naturally aligned timestamp */
 	struct {
 		u16 channels[2];
 		s64 ts __aligned(8);
 	} scan;
+=======
+>>>>>>> lkd/master
 };
 
 /* Default scale is set to the minimum of 0.03125 or 1 / (1 << 5) lux */
@@ -101,6 +114,10 @@ static const int max44000_alspga_shift[] = {0, 2, 4, 7};
  * Handling this internally is also required for buffer support because the
  * channel's scan_type can't be modified dynamically.
  */
+<<<<<<< HEAD
+=======
+static const int max44000_alstim_shift[] = {0, 2, 4, 6};
+>>>>>>> lkd/master
 #define MAX44000_ALSTIM_SHIFT(alstim) (2 * (alstim))
 
 /* Available integration times with pretty manual alignment: */
@@ -474,6 +491,7 @@ static bool max44000_precious_reg(struct device *dev, unsigned int reg)
 }
 
 static const struct regmap_config max44000_regmap_config = {
+<<<<<<< HEAD
 	.reg_bits		= 8,
 	.val_bits		= 8,
 
@@ -486,6 +504,19 @@ static const struct regmap_config max44000_regmap_config = {
 	.use_single_read	= true,
 	.use_single_write	= true,
 	.cache_type		= REGCACHE_RBTREE,
+=======
+	.reg_bits	= 8,
+	.val_bits	= 8,
+
+	.max_register	= MAX44000_REG_PRX_DATA,
+	.readable_reg	= max44000_readable_reg,
+	.writeable_reg	= max44000_writeable_reg,
+	.volatile_reg	= max44000_volatile_reg,
+	.precious_reg	= max44000_precious_reg,
+
+	.use_single_rw	= 1,
+	.cache_type	= REGCACHE_RBTREE,
+>>>>>>> lkd/master
 };
 
 static irqreturn_t max44000_trigger_handler(int irq, void *p)
@@ -493,6 +524,10 @@ static irqreturn_t max44000_trigger_handler(int irq, void *p)
 	struct iio_poll_func *pf = p;
 	struct iio_dev *indio_dev = pf->indio_dev;
 	struct max44000_data *data = iio_priv(indio_dev);
+<<<<<<< HEAD
+=======
+	u16 buf[8]; /* 2x u16 + padding + 8 bytes timestamp */
+>>>>>>> lkd/master
 	int index = 0;
 	unsigned int regval;
 	int ret;
@@ -502,17 +537,29 @@ static irqreturn_t max44000_trigger_handler(int irq, void *p)
 		ret = max44000_read_alsval(data);
 		if (ret < 0)
 			goto out_unlock;
+<<<<<<< HEAD
 		data->scan.channels[index++] = ret;
+=======
+		buf[index++] = ret;
+>>>>>>> lkd/master
 	}
 	if (test_bit(MAX44000_SCAN_INDEX_PRX, indio_dev->active_scan_mask)) {
 		ret = regmap_read(data->regmap, MAX44000_REG_PRX_DATA, &regval);
 		if (ret < 0)
 			goto out_unlock;
+<<<<<<< HEAD
 		data->scan.channels[index] = regval;
 	}
 	mutex_unlock(&data->lock);
 
 	iio_push_to_buffers_with_timestamp(indio_dev, &data->scan,
+=======
+		buf[index] = regval;
+	}
+	mutex_unlock(&data->lock);
+
+	iio_push_to_buffers_with_timestamp(indio_dev, buf,
+>>>>>>> lkd/master
 					   iio_get_time_ns(indio_dev));
 	iio_trigger_notify_done(indio_dev->trig);
 	return IRQ_HANDLED;
@@ -542,6 +589,10 @@ static int max44000_probe(struct i2c_client *client,
 
 	i2c_set_clientdata(client, indio_dev);
 	mutex_init(&data->lock);
+<<<<<<< HEAD
+=======
+	indio_dev->dev.parent = &client->dev;
+>>>>>>> lkd/master
 	indio_dev->info = &max44000_info;
 	indio_dev->name = MAX44000_DRV_NAME;
 	indio_dev->channels = max44000_channels;

@@ -5,14 +5,21 @@ Battery Charger and SFOUT LDO output for powering USB devices. It is
 interfaced to host controller using I2C.
 
 MAX77836 additionally contains PMIC (with two LDO regulators) and Fuel Gauge.
+<<<<<<< HEAD
 For the description of Fuel Gauge low SOC alert interrupt see:
 ../power/supply/max17040_battery.txt
+=======
+>>>>>>> lkd/master
 
 
 Required properties:
 - compatible : Must be "maxim,max14577" or "maxim,max77836".
 - reg : I2C slave address for the max14577 chip (0x25 for max14577/max77836)
 - interrupts : IRQ line for the chip.
+<<<<<<< HEAD
+=======
+- interrupt-parent :  The parent interrupt controller.
+>>>>>>> lkd/master
 
 
 Required nodes:

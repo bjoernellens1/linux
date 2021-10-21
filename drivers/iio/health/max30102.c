@@ -1,12 +1,32 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-or-later
 /*
  * max30102.c - Support for MAX30102 heart rate and pulse oximeter sensor
  *
  * Copyright (C) 2017 Matt Ranostay <matt.ranostay@konsulko.com>
+=======
+/*
+ * max30102.c - Support for MAX30102 heart rate and pulse oximeter sensor
+ *
+ * Copyright (C) 2017 Matt Ranostay <matt@ranostay.consulting>
+>>>>>>> lkd/master
  *
  * Support for MAX30105 optical particle sensor
  * Copyright (C) 2017 Peter Meerwald-Stadler <pmeerw@pmeerw.net>
  *
+<<<<<<< HEAD
+=======
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+>>>>>>> lkd/master
  * 7-bit I2C chip address: 0x57
  * TODO: proximity power saving feature
  */
@@ -19,7 +39,11 @@
 #include <linux/irq.h>
 #include <linux/i2c.h>
 #include <linux/mutex.h>
+<<<<<<< HEAD
 #include <linux/mod_devicetable.h>
+=======
+#include <linux/of.h>
+>>>>>>> lkd/master
 #include <linux/regmap.h>
 #include <linux/iio/iio.h>
 #include <linux/iio/buffer.h>
@@ -273,11 +297,17 @@ static int max30102_read_measurement(struct max30102_data *data,
 	switch (measurements) {
 	case 3:
 		MAX30102_COPY_DATA(2);
+<<<<<<< HEAD
 		fallthrough;
 	case 2:
 		MAX30102_COPY_DATA(1);
 		fallthrough;
 	case 1:
+=======
+	case 2: /* fall-through */
+		MAX30102_COPY_DATA(1);
+	case 1: /* fall-through */
+>>>>>>> lkd/master
 		MAX30102_COPY_DATA(0);
 		break;
 	default:
@@ -323,10 +353,18 @@ static int max30102_get_current_idx(unsigned int val, int *reg)
 static int max30102_led_init(struct max30102_data *data)
 {
 	struct device *dev = &data->client->dev;
+<<<<<<< HEAD
 	unsigned int val;
 	int reg, ret;
 
 	ret = device_property_read_u32(dev, "maxim,red-led-current-microamp", &val);
+=======
+	struct device_node *np = dev->of_node;
+	unsigned int val;
+	int reg, ret;
+
+	ret = of_property_read_u32(np, "maxim,red-led-current-microamp", &val);
+>>>>>>> lkd/master
 	if (ret) {
 		dev_info(dev, "no red-led-current-microamp set\n");
 
@@ -345,7 +383,11 @@ static int max30102_led_init(struct max30102_data *data)
 		return ret;
 
 	if (data->chip_id == max30105) {
+<<<<<<< HEAD
 		ret = device_property_read_u32(dev,
+=======
+		ret = of_property_read_u32(np,
+>>>>>>> lkd/master
 			"maxim,green-led-current-microamp", &val);
 		if (ret) {
 			dev_info(dev, "no green-led-current-microamp set\n");
@@ -367,7 +409,11 @@ static int max30102_led_init(struct max30102_data *data)
 			return ret;
 	}
 
+<<<<<<< HEAD
 	ret = device_property_read_u32(dev, "maxim,ir-led-current-microamp", &val);
+=======
+	ret = of_property_read_u32(np, "maxim,ir-led-current-microamp", &val);
+>>>>>>> lkd/master
 	if (ret) {
 		dev_info(dev, "no ir-led-current-microamp set\n");
 
@@ -525,6 +571,10 @@ static int max30102_probe(struct i2c_client *client,
 	indio_dev->info = &max30102_info;
 	indio_dev->modes = (INDIO_BUFFER_SOFTWARE | INDIO_DIRECT_MODE);
 	indio_dev->setup_ops = &max30102_buffer_setup_ops;
+<<<<<<< HEAD
+=======
+	indio_dev->dev.parent = &client->dev;
+>>>>>>> lkd/master
 
 	data = iio_priv(indio_dev);
 	data->indio_dev = indio_dev;
@@ -623,7 +673,11 @@ MODULE_DEVICE_TABLE(of, max30102_dt_ids);
 static struct i2c_driver max30102_driver = {
 	.driver = {
 		.name	= MAX30102_DRV_NAME,
+<<<<<<< HEAD
 		.of_match_table	= max30102_dt_ids,
+=======
+		.of_match_table	= of_match_ptr(max30102_dt_ids),
+>>>>>>> lkd/master
 	},
 	.probe		= max30102_probe,
 	.remove		= max30102_remove,
@@ -631,6 +685,10 @@ static struct i2c_driver max30102_driver = {
 };
 module_i2c_driver(max30102_driver);
 
+<<<<<<< HEAD
 MODULE_AUTHOR("Matt Ranostay <matt.ranostay@konsulko.com>");
+=======
+MODULE_AUTHOR("Matt Ranostay <matt@ranostay.consulting>");
+>>>>>>> lkd/master
 MODULE_DESCRIPTION("MAX30102 heart rate/pulse oximeter and MAX30105 particle sensor driver");
 MODULE_LICENSE("GPL");

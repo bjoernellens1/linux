@@ -1,7 +1,17 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-only
  /*
   * iio/dac/max5821.c
   * Copyright (C) 2014 Philippe Reynes
+=======
+ /*
+  * iio/dac/max5821.c
+  * Copyright (C) 2014 Philippe Reynes
+  *
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License version 2 as
+  * published by the Free Software Foundation.
+>>>>>>> lkd/master
   */
 
 #include <linux/kernel.h>
@@ -267,7 +277,12 @@ static int max5821_write_raw(struct iio_dev *indio_dev,
 	}
 }
 
+<<<<<<< HEAD
 static int __maybe_unused max5821_suspend(struct device *dev)
+=======
+#ifdef CONFIG_PM_SLEEP
+static int max5821_suspend(struct device *dev)
+>>>>>>> lkd/master
 {
 	u8 outbuf[2] = { MAX5821_EXTENDED_COMMAND_MODE,
 			 MAX5821_EXTENDED_DAC_A |
@@ -277,7 +292,11 @@ static int __maybe_unused max5821_suspend(struct device *dev)
 	return i2c_master_send(to_i2c_client(dev), outbuf, 2);
 }
 
+<<<<<<< HEAD
 static int __maybe_unused max5821_resume(struct device *dev)
+=======
+static int max5821_resume(struct device *dev)
+>>>>>>> lkd/master
 {
 	u8 outbuf[2] = { MAX5821_EXTENDED_COMMAND_MODE,
 			 MAX5821_EXTENDED_DAC_A |
@@ -288,6 +307,13 @@ static int __maybe_unused max5821_resume(struct device *dev)
 }
 
 static SIMPLE_DEV_PM_OPS(max5821_pm_ops, max5821_suspend, max5821_resume);
+<<<<<<< HEAD
+=======
+#define MAX5821_PM_OPS (&max5821_pm_ops)
+#else
+#define MAX5821_PM_OPS NULL
+#endif /* CONFIG_PM_SLEEP */
+>>>>>>> lkd/master
 
 static const struct iio_info max5821_info = {
 	.read_raw = max5821_read_raw,
@@ -341,6 +367,10 @@ static int max5821_probe(struct i2c_client *client,
 	data->vref_mv = ret / 1000;
 
 	indio_dev->name = id->name;
+<<<<<<< HEAD
+=======
+	indio_dev->dev.parent = &client->dev;
+>>>>>>> lkd/master
 	indio_dev->num_channels = ARRAY_SIZE(max5821_channels);
 	indio_dev->channels = max5821_channels;
 	indio_dev->modes = INDIO_DIRECT_MODE;
@@ -383,7 +413,11 @@ static struct i2c_driver max5821_driver = {
 	.driver = {
 		.name	= "max5821",
 		.of_match_table = max5821_of_match,
+<<<<<<< HEAD
 		.pm     = &max5821_pm_ops,
+=======
+		.pm     = MAX5821_PM_OPS,
+>>>>>>> lkd/master
 	},
 	.probe		= max5821_probe,
 	.remove		= max5821_remove,

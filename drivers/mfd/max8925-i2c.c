@@ -1,9 +1,19 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-only
+=======
+>>>>>>> lkd/master
 /*
  * I2C driver for Maxim MAX8925
  *
  * Copyright (C) 2009 Marvell International Ltd.
  *	Haojian Zhuang <haojian.zhuang@marvell.com>
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+>>>>>>> lkd/master
  */
 #include <linux/kernel.h>
 #include <linux/init.h>
@@ -176,6 +186,7 @@ static int max8925_probe(struct i2c_client *client,
 	dev_set_drvdata(chip->dev, chip);
 	mutex_init(&chip->io_lock);
 
+<<<<<<< HEAD
 	chip->rtc = i2c_new_dummy_device(chip->i2c->adapter, RTC_I2C_ADDR);
 	if (IS_ERR(chip->rtc)) {
 		dev_err(chip->dev, "Failed to allocate I2C device for RTC\n");
@@ -188,6 +199,20 @@ static int max8925_probe(struct i2c_client *client,
 		dev_err(chip->dev, "Failed to allocate I2C device for ADC\n");
 		i2c_unregister_device(chip->rtc);
 		return PTR_ERR(chip->adc);
+=======
+	chip->rtc = i2c_new_dummy(chip->i2c->adapter, RTC_I2C_ADDR);
+	if (!chip->rtc) {
+		dev_err(chip->dev, "Failed to allocate I2C device for RTC\n");
+		return -ENODEV;
+	}
+	i2c_set_clientdata(chip->rtc, chip);
+
+	chip->adc = i2c_new_dummy(chip->i2c->adapter, ADC_I2C_ADDR);
+	if (!chip->adc) {
+		dev_err(chip->dev, "Failed to allocate I2C device for ADC\n");
+		i2c_unregister_device(chip->rtc);
+		return -ENODEV;
+>>>>>>> lkd/master
 	}
 	i2c_set_clientdata(chip->adc, chip);
 

@@ -14,6 +14,10 @@ Required properties:
 - compatible : Must be "maxim,max77693".
 - reg : Specifies the i2c slave address of PMIC block.
 - interrupts : This i2c device has an IRQ line connected to the main SoC.
+<<<<<<< HEAD
+=======
+- interrupt-parent :  The parent interrupt controller.
+>>>>>>> lkd/master
 
 Optional properties:
 - regulators : The regulators of max77693 have to be instantiated under subnode
@@ -175,7 +179,10 @@ Example:
 			maxim,thermal-regulation-celsius = <75>;
 			maxim,battery-overcurrent-microamp = <3000000>;
 			maxim,charge-input-threshold-microvolt = <4300000>;
+<<<<<<< HEAD
 		};
+=======
+>>>>>>> lkd/master
 
 		led {
 			compatible = "maxim,max77693-led";

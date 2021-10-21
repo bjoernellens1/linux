@@ -1,9 +1,25 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-or-later
+=======
+>>>>>>> lkd/master
 /*
  * Hardware monitoring driver for Maxim MAX6621
  *
  * Copyright (c) 2017 Mellanox Technologies. All rights reserved.
  * Copyright (c) 2017 Vadim Pasternak <vadimp@mellanox.com>
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+>>>>>>> lkd/master
  */
 
 #include <linux/bitops.h>
@@ -449,6 +465,7 @@ static const struct regmap_config max6621_regmap_config = {
 	.num_reg_defaults = ARRAY_SIZE(max6621_regmap_default),
 };
 
+<<<<<<< HEAD
 static const struct hwmon_channel_info *max6621_info[] = {
 	HWMON_CHANNEL_INFO(chip,
 			   HWMON_C_REGISTER_TZ),
@@ -462,6 +479,39 @@ static const struct hwmon_channel_info *max6621_info[] = {
 			   HWMON_T_INPUT | HWMON_T_LABEL,
 			   HWMON_T_INPUT | HWMON_T_LABEL,
 			   HWMON_T_INPUT | HWMON_T_LABEL),
+=======
+static u32 max6621_chip_config[] = {
+	HWMON_C_REGISTER_TZ,
+	0
+};
+
+static const struct hwmon_channel_info max6621_chip = {
+	.type = hwmon_chip,
+	.config = max6621_chip_config,
+};
+
+static const u32 max6621_temp_config[] = {
+	HWMON_T_INPUT | HWMON_T_LABEL | HWMON_T_OFFSET,
+	HWMON_T_INPUT | HWMON_T_CRIT | HWMON_T_CRIT_ALARM | HWMON_T_LABEL,
+	HWMON_T_INPUT | HWMON_T_CRIT | HWMON_T_CRIT_ALARM | HWMON_T_LABEL,
+	HWMON_T_INPUT | HWMON_T_CRIT | HWMON_T_CRIT_ALARM | HWMON_T_LABEL,
+	HWMON_T_INPUT | HWMON_T_CRIT | HWMON_T_CRIT_ALARM | HWMON_T_LABEL,
+	HWMON_T_INPUT | HWMON_T_LABEL,
+	HWMON_T_INPUT | HWMON_T_LABEL,
+	HWMON_T_INPUT | HWMON_T_LABEL,
+	HWMON_T_INPUT | HWMON_T_LABEL,
+	0
+};
+
+static const struct hwmon_channel_info max6621_temp = {
+	.type = hwmon_temp,
+	.config = max6621_temp_config,
+};
+
+static const struct hwmon_channel_info *max6621_info[] = {
+	&max6621_chip,
+	&max6621_temp,
+>>>>>>> lkd/master
 	NULL
 };
 
@@ -477,7 +527,12 @@ static const struct hwmon_chip_info max6621_chip_info = {
 	.info = max6621_info,
 };
 
+<<<<<<< HEAD
 static int max6621_probe(struct i2c_client *client)
+=======
+static int max6621_probe(struct i2c_client *client,
+			 const struct i2c_device_id *id)
+>>>>>>> lkd/master
 {
 	struct device *dev = &client->dev;
 	struct max6621_data *data;
@@ -542,7 +597,11 @@ static const struct i2c_device_id max6621_id[] = {
 };
 MODULE_DEVICE_TABLE(i2c, max6621_id);
 
+<<<<<<< HEAD
 static const struct of_device_id __maybe_unused max6621_of_match[] = {
+=======
+static const struct of_device_id max6621_of_match[] = {
+>>>>>>> lkd/master
 	{ .compatible = "maxim,max6621" },
 	{ }
 };
@@ -554,7 +613,11 @@ static struct i2c_driver max6621_driver = {
 		.name = MAX6621_DRV_NAME,
 		.of_match_table = of_match_ptr(max6621_of_match),
 	},
+<<<<<<< HEAD
 	.probe_new	= max6621_probe,
+=======
+	.probe		= max6621_probe,
+>>>>>>> lkd/master
 	.id_table	= max6621_id,
 };
 

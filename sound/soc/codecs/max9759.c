@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0
+=======
+// SPDX-Licence-Identifier: GPL-2.0
+>>>>>>> lkd/master
 /*
  * MAX9759 Amplifier Driver
  *

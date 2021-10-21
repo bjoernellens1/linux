@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-or-later
+=======
+>>>>>>> lkd/master
 /*
  * max9850.c  --  codec driver for max9850
  *
@@ -7,7 +10,17 @@
  * Author: Christian Glindkamp <christian.glindkamp@taskit.de>
  *
  * Initial development of this code was funded by
+<<<<<<< HEAD
  * MICRONIC Computer Systeme GmbH, https://www.mcsberlin.de/
+=======
+ * MICRONIC Computer Systeme GmbH, http://www.mcsberlin.de/
+ *
+ * This program is free software; you can redistribute  it and/or modify it
+ * under  the terms of  the GNU General  Public License as published by the
+ * Free Software Foundation;  either version 2 of the  License, or (at your
+ * option) any later version.
+ *
+>>>>>>> lkd/master
  */
 
 #include <linux/module.h>
@@ -27,6 +40,22 @@ struct max9850_priv {
 	unsigned int sysclk;
 };
 
+<<<<<<< HEAD
+=======
+/* max9850 register cache */
+static const struct reg_default max9850_reg[] = {
+	{  2, 0x0c },
+	{  3, 0x00 },
+	{  4, 0x00 },
+	{  5, 0x00 },
+	{  6, 0x00 },
+	{  7, 0x00 },
+	{  8, 0x00 },
+	{  9, 0x00 },
+	{ 10, 0x00 },
+};
+
+>>>>>>> lkd/master
 /* these registers are not used at the moment but provided for the sake of
  * completeness */
 static bool max9850_volatile_register(struct device *dev, unsigned int reg)
@@ -34,9 +63,15 @@ static bool max9850_volatile_register(struct device *dev, unsigned int reg)
 	switch (reg) {
 	case MAX9850_STATUSA:
 	case MAX9850_STATUSB:
+<<<<<<< HEAD
 		return true;
 	default:
 		return false;
+=======
+		return 1;
+	default:
+		return 0;
+>>>>>>> lkd/master
 	}
 }
 
@@ -121,7 +156,11 @@ static int max9850_hw_params(struct snd_pcm_substream *substream,
 		return -EINVAL;
 
 	/* lrclk_div = 2^22 * rate / iclk with iclk = mclk / sf */
+<<<<<<< HEAD
 	sf = (snd_soc_component_read(component, MAX9850_CLOCK) >> 2) + 1;
+=======
+	sf = (snd_soc_component_read32(component, MAX9850_CLOCK) >> 2) + 1;
+>>>>>>> lkd/master
 	lrclk_div = (1 << 22);
 	lrclk_div *= params_rate(params);
 	lrclk_div *= sf;

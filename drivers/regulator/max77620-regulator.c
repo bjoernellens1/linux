@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-only
 /*
  * Maxim MAX77620 Regulator driver
@@ -6,6 +7,19 @@
  *
  * Author: Mallikarjun Kasoju <mkasoju@nvidia.com>
  *	Laxman Dewangan <ldewangan@nvidia.com>
+=======
+/*
+ * Maxim MAX77620 Regulator driver
+ *
+ * Copyright (c) 2016, NVIDIA CORPORATION.  All rights reserved.
+ *
+ * Author: Mallikarjun Kasoju <mkasoju@nvidia.com>
+ *	Laxman Dewangan <ldewangan@nvidia.com>
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms and conditions of the GNU General Public License,
+ * version 2, as published by the Free Software Foundation.
+>>>>>>> lkd/master
  */
 
 #include <linux/init.h>
@@ -467,7 +481,11 @@ static int max77620_regulator_is_enabled(struct regulator_dev *rdev)
 {
 	struct max77620_regulator *pmic = rdev_get_drvdata(rdev);
 	int id = rdev_get_id(rdev);
+<<<<<<< HEAD
 	int ret;
+=======
+	int ret = 1;
+>>>>>>> lkd/master
 
 	if (pmic->active_fps_src[id] != MAX77620_FPS_SRC_NONE)
 		return 1;
@@ -687,7 +705,10 @@ static const struct regulator_ops max77620_regulator_ops = {
 			.active_discharge_mask = MAX77620_SD_CFG1_ADE_MASK, \
 			.active_discharge_reg = MAX77620_REG_##_id##_CFG, \
 			.type = REGULATOR_VOLTAGE,			\
+<<<<<<< HEAD
 			.owner = THIS_MODULE,				\
+=======
+>>>>>>> lkd/master
 		},							\
 	}
 
@@ -719,7 +740,10 @@ static const struct regulator_ops max77620_regulator_ops = {
 			.active_discharge_mask = MAX77620_LDO_CFG2_ADE_MASK, \
 			.active_discharge_reg = MAX77620_REG_##_id##_CFG2, \
 			.type = REGULATOR_VOLTAGE,			\
+<<<<<<< HEAD
 			.owner = THIS_MODULE,				\
+=======
+>>>>>>> lkd/master
 		},							\
 	}
 
@@ -758,6 +782,7 @@ static struct max77620_regulator_info max20024_regs_info[MAX77620_NUM_REGS] = {
 	RAIL_LDO(LDO8, ldo8, "in-ldo7-8", N, 800000, 3950000, 50000),
 };
 
+<<<<<<< HEAD
 static struct max77620_regulator_info max77663_regs_info[MAX77620_NUM_REGS] = {
 	RAIL_SD(SD0, sd0, "in-sd0", SD0, 600000, 3387500, 12500, 0xFF, NONE),
 	RAIL_SD(SD1, sd1, "in-sd1", SD1, 800000, 1587500, 12500, 0xFF, NONE),
@@ -776,6 +801,8 @@ static struct max77620_regulator_info max77663_regs_info[MAX77620_NUM_REGS] = {
 	RAIL_LDO(LDO8, ldo8, "in-ldo7-8", N, 800000, 3950000, 50000),
 };
 
+=======
+>>>>>>> lkd/master
 static int max77620_regulator_probe(struct platform_device *pdev)
 {
 	struct max77620_chip *max77620_chip = dev_get_drvdata(pdev->dev.parent);
@@ -800,6 +827,7 @@ static int max77620_regulator_probe(struct platform_device *pdev)
 	case MAX77620:
 		rinfo = max77620_regs_info;
 		break;
+<<<<<<< HEAD
 	case MAX20024:
 		rinfo = max20024_regs_info;
 		break;
@@ -808,12 +836,18 @@ static int max77620_regulator_probe(struct platform_device *pdev)
 		break;
 	default:
 		return -EINVAL;
+=======
+	default:
+		rinfo = max20024_regs_info;
+		break;
+>>>>>>> lkd/master
 	}
 
 	config.regmap = pmic->rmap;
 	config.dev = dev;
 	config.driver_data = pmic;
 
+<<<<<<< HEAD
 	/*
 	 * Set of_node_reuse flag to prevent driver core from attempting to
 	 * claim any pinmux resources already claimed by the parent device.
@@ -821,6 +855,8 @@ static int max77620_regulator_probe(struct platform_device *pdev)
 	 */
 	device_set_of_node_from_dev(&pdev->dev, pdev->dev.parent);
 
+=======
+>>>>>>> lkd/master
 	for (id = 0; id < MAX77620_NUM_REGS; id++) {
 		struct regulator_dev *rdev;
 		struct regulator_desc *rdesc;
@@ -830,6 +866,7 @@ static int max77620_regulator_probe(struct platform_device *pdev)
 			continue;
 
 		rdesc = &rinfo[id].desc;
+<<<<<<< HEAD
 		pmic->rinfo[id] = &rinfo[id];
 		pmic->enable_power_mode[id] = MAX77620_POWER_MODE_NORMAL;
 		pmic->reg_pdata[id].active_fps_src = -1;
@@ -840,6 +877,10 @@ static int max77620_regulator_probe(struct platform_device *pdev)
 		pmic->reg_pdata[id].suspend_fps_pu_slot = -1;
 		pmic->reg_pdata[id].power_ok = -1;
 		pmic->reg_pdata[id].ramp_rate_setting = -1;
+=======
+		pmic->rinfo[id] = &max77620_regs_info[id];
+		pmic->enable_power_mode[id] = MAX77620_POWER_MODE_NORMAL;
+>>>>>>> lkd/master
 
 		ret = max77620_read_slew_rate(pmic, id);
 		if (ret < 0)
@@ -908,7 +949,10 @@ static const struct dev_pm_ops max77620_regulator_pm_ops = {
 static const struct platform_device_id max77620_regulator_devtype[] = {
 	{ .name = "max77620-pmic", },
 	{ .name = "max20024-pmic", },
+<<<<<<< HEAD
 	{ .name = "max77663-pmic", },
+=======
+>>>>>>> lkd/master
 	{},
 };
 MODULE_DEVICE_TABLE(platform, max77620_regulator_devtype);

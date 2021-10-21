@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0+
 //
 // Fuel gauge driver for Maxim 17042 / 8966 / 8997
@@ -7,6 +8,31 @@
 // MyungJoo Ham <myungjoo.ham@samsung.com>
 //
 // This driver is based on max17040_battery.c
+=======
+/*
+ * Fuel gauge driver for Maxim 17042 / 8966 / 8997
+ *  Note that Maxim 8966 and 8997 are mfd and this is its subdevice.
+ *
+ * Copyright (C) 2011 Samsung Electronics
+ * MyungJoo Ham <myungjoo.ham@samsung.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * This driver is based on max17040_battery.c
+ */
+>>>>>>> lkd/master
 
 #include <linux/acpi.h>
 #include <linux/init.h>
@@ -85,8 +111,11 @@ static enum power_supply_property max17042_battery_props[] = {
 	POWER_SUPPLY_PROP_TEMP_MAX,
 	POWER_SUPPLY_PROP_HEALTH,
 	POWER_SUPPLY_PROP_SCOPE,
+<<<<<<< HEAD
 	POWER_SUPPLY_PROP_TIME_TO_EMPTY_NOW,
 	// these two have to be at the end on the list
+=======
+>>>>>>> lkd/master
 	POWER_SUPPLY_PROP_CURRENT_NOW,
 	POWER_SUPPLY_PROP_CURRENT_AVG,
 };
@@ -284,8 +313,11 @@ static int max17042_get_property(struct power_supply *psy,
 	case POWER_SUPPLY_PROP_VOLTAGE_MIN_DESIGN:
 		if (chip->chip_type == MAXIM_DEVICE_TYPE_MAX17042)
 			ret = regmap_read(map, MAX17042_V_empty, &data);
+<<<<<<< HEAD
 		else if (chip->chip_type == MAXIM_DEVICE_TYPE_MAX17055)
 			ret = regmap_read(map, MAX17055_V_empty, &data);
+=======
+>>>>>>> lkd/master
 		else
 			ret = regmap_read(map, MAX17047_V_empty, &data);
 		if (ret < 0)
@@ -413,6 +445,7 @@ static int max17042_get_property(struct power_supply *psy,
 			return -EINVAL;
 		}
 		break;
+<<<<<<< HEAD
 	case POWER_SUPPLY_PROP_TIME_TO_EMPTY_NOW:
 		ret = regmap_read(map, MAX17042_TTE, &data);
 		if (ret < 0)
@@ -420,6 +453,8 @@ static int max17042_get_property(struct power_supply *psy,
 
 		val->intval = data * 5625 / 1000;
 		break;
+=======
+>>>>>>> lkd/master
 	default:
 		return -EINVAL;
 	}
@@ -522,7 +557,11 @@ static inline void max17042_override_por(struct regmap *map,
 		regmap_write(map, reg, value);
 }
 
+<<<<<<< HEAD
 static inline void max17042_unlock_model(struct max17042_chip *chip)
+=======
+static inline void max10742_unlock_model(struct max17042_chip *chip)
+>>>>>>> lkd/master
 {
 	struct regmap *map = chip->regmap;
 
@@ -530,7 +569,11 @@ static inline void max17042_unlock_model(struct max17042_chip *chip)
 	regmap_write(map, MAX17042_MLOCKReg2, MODEL_UNLOCK2);
 }
 
+<<<<<<< HEAD
 static inline void max17042_lock_model(struct max17042_chip *chip)
+=======
+static inline void max10742_lock_model(struct max17042_chip *chip)
+>>>>>>> lkd/master
 {
 	struct regmap *map = chip->regmap;
 
@@ -588,7 +631,11 @@ static int max17042_init_model(struct max17042_chip *chip)
 	if (!temp_data)
 		return -ENOMEM;
 
+<<<<<<< HEAD
 	max17042_unlock_model(chip);
+=======
+	max10742_unlock_model(chip);
+>>>>>>> lkd/master
 	max17042_write_model_data(chip, MAX17042_MODELChrTbl,
 				table_size);
 	max17042_read_model_data(chip, MAX17042_MODELChrTbl, temp_data,
@@ -600,7 +647,11 @@ static int max17042_init_model(struct max17042_chip *chip)
 		temp_data,
 		table_size);
 
+<<<<<<< HEAD
 	max17042_lock_model(chip);
+=======
+	max10742_lock_model(chip);
+>>>>>>> lkd/master
 	kfree(temp_data);
 
 	return ret;
@@ -638,8 +689,12 @@ static void max17042_write_config_regs(struct max17042_chip *chip)
 			config->filter_cfg);
 	regmap_write(map, MAX17042_RelaxCFG, config->relax_cfg);
 	if (chip->chip_type == MAXIM_DEVICE_TYPE_MAX17047 ||
+<<<<<<< HEAD
 			chip->chip_type == MAXIM_DEVICE_TYPE_MAX17050 ||
 			chip->chip_type == MAXIM_DEVICE_TYPE_MAX17055)
+=======
+			chip->chip_type == MAXIM_DEVICE_TYPE_MAX17050)
+>>>>>>> lkd/master
 		regmap_write(map, MAX17047_FullSOCThr,
 						config->full_soc_thresh);
 }
@@ -738,7 +793,11 @@ static inline void max17042_override_por_values(struct max17042_chip *chip)
 	struct max17042_config_data *config = chip->pdata->config_data;
 
 	max17042_override_por(map, MAX17042_TGAIN, config->tgain);
+<<<<<<< HEAD
 	max17042_override_por(map, MAX17042_TOFF, config->toff);
+=======
+	max17042_override_por(map, MAx17042_TOFF, config->toff);
+>>>>>>> lkd/master
 	max17042_override_por(map, MAX17042_CGAIN, config->cgain);
 	max17042_override_por(map, MAX17042_COFF, config->coff);
 
@@ -770,8 +829,11 @@ static inline void max17042_override_por_values(struct max17042_chip *chip)
 
 	if (chip->chip_type == MAXIM_DEVICE_TYPE_MAX17042)
 		max17042_override_por(map, MAX17042_V_empty, config->vempty);
+<<<<<<< HEAD
 	if (chip->chip_type == MAXIM_DEVICE_TYPE_MAX17055)
 		max17042_override_por(map, MAX17055_V_empty, config->vempty);
+=======
+>>>>>>> lkd/master
 	else
 		max17042_override_por(map, MAX17047_V_empty, config->vempty);
 	max17042_override_por(map, MAX17042_TempNom, config->temp_nom);
@@ -779,10 +841,14 @@ static inline void max17042_override_por_values(struct max17042_chip *chip)
 	max17042_override_por(map, MAX17042_FCTC, config->fctc);
 	max17042_override_por(map, MAX17042_RCOMP0, config->rcomp0);
 	max17042_override_por(map, MAX17042_TempCo, config->tcompc0);
+<<<<<<< HEAD
 	if (chip->chip_type &&
 	    ((chip->chip_type == MAXIM_DEVICE_TYPE_MAX17042) ||
 	    (chip->chip_type == MAXIM_DEVICE_TYPE_MAX17047) ||
 	    (chip->chip_type == MAXIM_DEVICE_TYPE_MAX17050))) {
+=======
+	if (chip->chip_type) {
+>>>>>>> lkd/master
 		max17042_override_por(map, MAX17042_EmptyTempCo,
 						config->empty_tempco);
 		max17042_override_por(map, MAX17042_K_empty0,
@@ -859,12 +925,17 @@ static irqreturn_t max17042_thread_handler(int id, void *dev)
 {
 	struct max17042_chip *chip = dev;
 	u32 val;
+<<<<<<< HEAD
 	int ret;
 
 	ret = regmap_read(chip->regmap, MAX17042_STATUS, &val);
 	if (ret)
 		return IRQ_HANDLED;
 
+=======
+
+	regmap_read(chip->regmap, MAX17042_STATUS, &val);
+>>>>>>> lkd/master
 	if ((val & STATUS_INTR_SOCMIN_BIT) ||
 		(val & STATUS_INTR_SOCMAX_BIT)) {
 		dev_info(&chip->client->dev, "SOC threshold INTR\n");
@@ -950,8 +1021,12 @@ max17042_get_default_pdata(struct max17042_chip *chip)
 	if (!pdata)
 		return pdata;
 
+<<<<<<< HEAD
 	if ((chip->chip_type == MAXIM_DEVICE_TYPE_MAX17047) ||
 	    (chip->chip_type == MAXIM_DEVICE_TYPE_MAX17050)) {
+=======
+	if (chip->chip_type != MAXIM_DEVICE_TYPE_MAX17042) {
+>>>>>>> lkd/master
 		pdata->init_data = max17047_default_pdata_init_regs;
 		pdata->num_init_data =
 			ARRAY_SIZE(max17047_default_pdata_init_regs);
@@ -1017,6 +1092,7 @@ static const struct power_supply_desc max17042_no_current_sense_psy_desc = {
 	.num_properties	= ARRAY_SIZE(max17042_battery_props) - 2,
 };
 
+<<<<<<< HEAD
 static void max17042_stop_work(void *data)
 {
 	struct max17042_chip *chip = data;
@@ -1028,6 +1104,12 @@ static int max17042_probe(struct i2c_client *client,
 			const struct i2c_device_id *id)
 {
 	struct i2c_adapter *adapter = client->adapter;
+=======
+static int max17042_probe(struct i2c_client *client,
+			const struct i2c_device_id *id)
+{
+	struct i2c_adapter *adapter = to_i2c_adapter(client->dev.parent);
+>>>>>>> lkd/master
 	const struct power_supply_desc *max17042_desc = &max17042_psy_desc;
 	struct power_supply_config psy_cfg = {};
 	const struct acpi_device_id *acpi_id = NULL;
@@ -1098,7 +1180,11 @@ static int max17042_probe(struct i2c_client *client,
 	}
 
 	if (client->irq) {
+<<<<<<< HEAD
 		unsigned int flags = IRQF_ONESHOT;
+=======
+		unsigned int flags = IRQF_TRIGGER_FALLING | IRQF_ONESHOT;
+>>>>>>> lkd/master
 
 		/*
 		 * On ACPI systems the IRQ may be handled by ACPI-event code,
@@ -1130,9 +1216,12 @@ static int max17042_probe(struct i2c_client *client,
 	regmap_read(chip->regmap, MAX17042_STATUS, &val);
 	if (val & STATUS_POR_BIT) {
 		INIT_WORK(&chip->work, max17042_init_worker);
+<<<<<<< HEAD
 		ret = devm_add_action(&client->dev, max17042_stop_work, chip);
 		if (ret)
 			return ret;
+=======
+>>>>>>> lkd/master
 		schedule_work(&chip->work);
 	} else {
 		chip->init_complete = 1;
@@ -1189,7 +1278,10 @@ static const struct of_device_id max17042_dt_match[] = {
 	{ .compatible = "maxim,max17042" },
 	{ .compatible = "maxim,max17047" },
 	{ .compatible = "maxim,max17050" },
+<<<<<<< HEAD
 	{ .compatible = "maxim,max17055" },
+=======
+>>>>>>> lkd/master
 	{ },
 };
 MODULE_DEVICE_TABLE(of, max17042_dt_match);
@@ -1199,7 +1291,10 @@ static const struct i2c_device_id max17042_id[] = {
 	{ "max17042", MAXIM_DEVICE_TYPE_MAX17042 },
 	{ "max17047", MAXIM_DEVICE_TYPE_MAX17047 },
 	{ "max17050", MAXIM_DEVICE_TYPE_MAX17050 },
+<<<<<<< HEAD
 	{ "max17055", MAXIM_DEVICE_TYPE_MAX17055 },
+=======
+>>>>>>> lkd/master
 	{ }
 };
 MODULE_DEVICE_TABLE(i2c, max17042_id);

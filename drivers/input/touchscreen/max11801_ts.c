@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-or-later
+=======
+>>>>>>> lkd/master
 /*
  * Driver for MAXI MAX11801 - A Resistive touch screen controller with
  * i2c interface
@@ -7,6 +10,14 @@
  * Author: Zhang Jiejing <jiejing.zhang@freescale.com>
  *
  * Based on mcs5000_ts.c
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+>>>>>>> lkd/master
  */
 
 /*
@@ -130,6 +141,10 @@ static irqreturn_t max11801_ts_interrupt(int irq, void *dev_id)
 
 		switch (buf[1] & EVENT_TAG_MASK) {
 		case EVENT_INIT:
+<<<<<<< HEAD
+=======
+			/* fall through */
+>>>>>>> lkd/master
 		case EVENT_MIDDLE:
 			input_report_abs(data->input_dev, ABS_X, x);
 			input_report_abs(data->input_dev, ABS_Y, y);

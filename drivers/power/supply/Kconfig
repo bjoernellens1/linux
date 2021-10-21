@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SPDX-License-Identifier: GPL-2.0-only
 menuconfig POWER_SUPPLY
 	bool "Power supply class support"
@@ -783,3 +784,12 @@ config RN5T618_POWER
 	  called rn5t618_power.
 
 endif # POWER_SUPPLY
+=======
+config BATTERY_MAX1720x
+	tristate "Maxim MAX1720x Fuel Gauge with Charger"
+	depends on I2C
+	help
+	  Say Y to support for MAX172xx/MAX173xx Driver.
+	  This driver controls Maxim MAX17201/MAX17205/MAX17301/2/3,
+	  MAX17320 and MAX17330 standalone Model Gauge M5.
+>>>>>>> lkd/master

@@ -372,7 +372,11 @@ static int devm_w1_max1721x_add_device(struct w1_slave *sl)
 	}
 
 	if (!info->rsense) {
+<<<<<<< HEAD
 		dev_warn(info->w1_dev, "RSense not calibrated, set 10 mOhms!\n");
+=======
+		dev_warn(info->w1_dev, "RSenese not calibrated, set 10 mOhms!\n");
+>>>>>>> lkd/master
 		info->rsense = 1000; /* in regs in 10^-5 */
 	}
 	dev_info(info->w1_dev, "RSense: %d mOhms.\n", info->rsense / 100);
@@ -431,7 +435,11 @@ static int devm_w1_max1721x_add_device(struct w1_slave *sl)
 	return 0;
 }
 
+<<<<<<< HEAD
 static const struct w1_family_ops w1_max1721x_fops = {
+=======
+static struct w1_family_ops w1_max1721x_fops = {
+>>>>>>> lkd/master
 	.add_slave = devm_w1_max1721x_add_device,
 };
 

@@ -11,6 +11,12 @@ Required properties:
    The driver configures MAX3421E for active low level triggered interrupts,
    configure your interrupt line accordingly.
 
+<<<<<<< HEAD
+=======
+Optional property:
+ - interrupt-parent: the phandle to the associated interrupt controller.
+
+>>>>>>> lkd/master
 Example:
 
 	usb@0 {

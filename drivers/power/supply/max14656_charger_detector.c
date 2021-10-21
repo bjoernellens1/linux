@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-only
+=======
+>>>>>>> lkd/master
 /*
  * Maxim MAX14656 / AL32 USB Charger Detector driver
  *
@@ -8,6 +11,14 @@
  * Components from Maxim AL32 Charger detection Driver for MX50 Yoshi Board
  * Copyright (C) Amazon Technologies Inc. All rights reserved.
  * Manish Lachwani (lachwani@lab126.com)
+<<<<<<< HEAD
+=======
+ *
+ * This package is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+>>>>>>> lkd/master
  */
 #include <linux/module.h>
 #include <linux/init.h>
@@ -139,9 +150,16 @@ static void max14656_irq_worker(struct work_struct *work)
 
 	u8 buf[REG_TOTAL_NUM];
 	u8 chg_type;
+<<<<<<< HEAD
 
 	max14656_read_block_reg(chip->client, MAX14656_DEVICE_ID,
 				REG_TOTAL_NUM, buf);
+=======
+	int ret = 0;
+
+	ret = max14656_read_block_reg(chip->client, MAX14656_DEVICE_ID,
+				      REG_TOTAL_NUM, buf);
+>>>>>>> lkd/master
 
 	if ((buf[MAX14656_STATUS_1] & STATUS1_VB_VALID_MASK) &&
 		(buf[MAX14656_STATUS_1] & STATUS1_CHG_TYPE_MASK)) {
@@ -235,6 +253,7 @@ static enum power_supply_property max14656_battery_props[] = {
 	POWER_SUPPLY_PROP_MANUFACTURER,
 };
 
+<<<<<<< HEAD
 static void stop_irq_work(void *data)
 {
 	struct max14656_chip *chip = data;
@@ -247,6 +266,12 @@ static int max14656_probe(struct i2c_client *client,
 			  const struct i2c_device_id *id)
 {
 	struct i2c_adapter *adapter = client->adapter;
+=======
+static int max14656_probe(struct i2c_client *client,
+			  const struct i2c_device_id *id)
+{
+	struct i2c_adapter *adapter = to_i2c_adapter(client->dev.parent);
+>>>>>>> lkd/master
 	struct device *dev = &client->dev;
 	struct power_supply_config psy_cfg = {};
 	struct max14656_chip *chip;
@@ -281,6 +306,7 @@ static int max14656_probe(struct i2c_client *client,
 	if (ret)
 		return -ENODEV;
 
+<<<<<<< HEAD
 	chip->detect_psy = devm_power_supply_register(dev,
 		       &chip->psy_desc, &psy_cfg);
 	if (IS_ERR(chip->detect_psy)) {
@@ -294,6 +320,9 @@ static int max14656_probe(struct i2c_client *client,
 		dev_err(dev, "devm_add_action %d failed\n", ret);
 		return ret;
 	}
+=======
+	INIT_DELAYED_WORK(&chip->irq_work, max14656_irq_worker);
+>>>>>>> lkd/master
 
 	ret = devm_request_irq(dev, chip->irq, max14656_irq,
 			       IRQF_TRIGGER_FALLING,
@@ -304,6 +333,16 @@ static int max14656_probe(struct i2c_client *client,
 	}
 	enable_irq_wake(chip->irq);
 
+<<<<<<< HEAD
+=======
+	chip->detect_psy = devm_power_supply_register(dev,
+		       &chip->psy_desc, &psy_cfg);
+	if (IS_ERR(chip->detect_psy)) {
+		dev_err(dev, "power_supply_register failed\n");
+		return -EINVAL;
+	}
+
+>>>>>>> lkd/master
 	schedule_delayed_work(&chip->irq_work, msecs_to_jiffies(2000));
 
 	return 0;

@@ -1,9 +1,29 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-or-later
+=======
+>>>>>>> lkd/master
 /*
  * Copyright (c) 2011 David George <david.george@ska.ac.za>
  *
  * based on adm1021.c
  * some credit to Christoph Scheurer, but largely a rewrite
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+>>>>>>> lkd/master
  */
 
 #include <linux/module.h>
@@ -391,9 +411,14 @@ static int max1668_detect(struct i2c_client *client,
 	return 0;
 }
 
+<<<<<<< HEAD
 static const struct i2c_device_id max1668_id[];
 
 static int max1668_probe(struct i2c_client *client)
+=======
+static int max1668_probe(struct i2c_client *client,
+			 const struct i2c_device_id *id)
+>>>>>>> lkd/master
 {
 	struct i2c_adapter *adapter = client->adapter;
 	struct device *dev = &client->dev;
@@ -408,7 +433,11 @@ static int max1668_probe(struct i2c_client *client)
 		return -ENOMEM;
 
 	data->client = client;
+<<<<<<< HEAD
 	data->type = i2c_match_id(max1668_id, client)->driver_data;
+=======
+	data->type = id->driver_data;
+>>>>>>> lkd/master
 	mutex_init(&data->update_lock);
 
 	/* sysfs hooks */
@@ -435,7 +464,11 @@ static struct i2c_driver max1668_driver = {
 	.driver = {
 		  .name	= "max1668",
 		  },
+<<<<<<< HEAD
 	.probe_new = max1668_probe,
+=======
+	.probe = max1668_probe,
+>>>>>>> lkd/master
 	.id_table = max1668_id,
 	.detect	= max1668_detect,
 	.address_list = max1668_addr_list,

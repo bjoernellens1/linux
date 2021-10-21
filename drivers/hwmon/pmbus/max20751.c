@@ -1,8 +1,24 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-or-later
+=======
+>>>>>>> lkd/master
 /*
  * Hardware monitoring driver for Maxim MAX20751
  *
  * Copyright (c) 2015 Guenter Roeck
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+>>>>>>> lkd/master
  */
 
 #include <linux/kernel.h>
@@ -16,7 +32,11 @@ static struct pmbus_driver_info max20751_info = {
 	.pages = 1,
 	.format[PSC_VOLTAGE_IN] = linear,
 	.format[PSC_VOLTAGE_OUT] = vid,
+<<<<<<< HEAD
 	.vrm_version[0] = vr12,
+=======
+	.vrm_version = vr12,
+>>>>>>> lkd/master
 	.format[PSC_TEMPERATURE] = linear,
 	.format[PSC_CURRENT_OUT] = linear,
 	.format[PSC_POWER] = linear,
@@ -26,9 +46,16 @@ static struct pmbus_driver_info max20751_info = {
 		PMBUS_HAVE_POUT,
 };
 
+<<<<<<< HEAD
 static int max20751_probe(struct i2c_client *client)
 {
 	return pmbus_do_probe(client, &max20751_info);
+=======
+static int max20751_probe(struct i2c_client *client,
+			  const struct i2c_device_id *id)
+{
+	return pmbus_do_probe(client, id, &max20751_info);
+>>>>>>> lkd/master
 }
 
 static const struct i2c_device_id max20751_id[] = {
@@ -42,7 +69,11 @@ static struct i2c_driver max20751_driver = {
 	.driver = {
 		   .name = "max20751",
 		   },
+<<<<<<< HEAD
 	.probe_new = max20751_probe,
+=======
+	.probe = max20751_probe,
+>>>>>>> lkd/master
 	.remove = pmbus_do_remove,
 	.id_table = max20751_id,
 };

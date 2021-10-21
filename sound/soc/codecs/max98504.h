@@ -1,9 +1,19 @@
+<<<<<<< HEAD
 /* SPDX-License-Identifier: GPL-2.0-only */
+=======
+>>>>>>> lkd/master
 /*
  * MAX98504 ALSA SoC Audio driver
  *
  * Copyright 2011 - 2012 Maxim Integrated Products
  * Copyright 2016 Samsung Electronics Co., Ltd.
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+>>>>>>> lkd/master
  */
 #ifndef MAX98504_H_
 #define MAX98504_H_

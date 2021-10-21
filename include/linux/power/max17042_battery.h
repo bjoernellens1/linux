@@ -1,10 +1,30 @@
+<<<<<<< HEAD
 /* SPDX-License-Identifier: GPL-2.0-or-later */
+=======
+>>>>>>> lkd/master
 /*
  * Fuel gauge driver for Maxim 17042 / 8966 / 8997
  *  Note that Maxim 8966 and 8997 are mfd and this is its subdevice.
  *
  * Copyright (C) 2011 Samsung Electronics
  * MyungJoo Ham <myungjoo.ham@samsung.com>
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+>>>>>>> lkd/master
  */
 
 #ifndef __MAX17042_BATTERY_H_
@@ -69,7 +89,11 @@ enum max17042_register {
 	MAX17042_RelaxCFG	= 0x2A,
 	MAX17042_MiscCFG	= 0x2B,
 	MAX17042_TGAIN		= 0x2C,
+<<<<<<< HEAD
 	MAX17042_TOFF		= 0x2D,
+=======
+	MAx17042_TOFF		= 0x2D,
+>>>>>>> lkd/master
 	MAX17042_CGAIN		= 0x2E,
 	MAX17042_COFF		= 0x2F,
 
@@ -105,11 +129,16 @@ enum max17042_register {
 
 	MAX17042_OCV		= 0xEE,
 
+<<<<<<< HEAD
 	MAX17042_OCVInternal	= 0xFB,  /* MAX17055 VFOCV */
+=======
+	MAX17042_OCVInternal	= 0xFB,
+>>>>>>> lkd/master
 
 	MAX17042_VFSOC		= 0xFF,
 };
 
+<<<<<<< HEAD
 enum max17055_register {
 	MAX17055_QRes		= 0x0C,
 	MAX17055_TTF		= 0x20,
@@ -155,6 +184,8 @@ enum max17055_register {
 	MAX17055_AtAvCap	= 0xDF,
 };
 
+=======
+>>>>>>> lkd/master
 /* Registers specific to max17047/50 */
 enum max17047_register {
 	MAX17047_QRTbl00	= 0x12,
@@ -170,7 +201,10 @@ enum max170xx_chip_type {
 	MAXIM_DEVICE_TYPE_MAX17042,
 	MAXIM_DEVICE_TYPE_MAX17047,
 	MAXIM_DEVICE_TYPE_MAX17050,
+<<<<<<< HEAD
 	MAXIM_DEVICE_TYPE_MAX17055,
+=======
+>>>>>>> lkd/master
 
 	MAXIM_DEVICE_TYPE_NUM
 };

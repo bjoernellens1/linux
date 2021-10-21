@@ -3,6 +3,10 @@
 Required properties:
 - compatible: must be "maxim,max11801"
 - reg: i2c slave address
+<<<<<<< HEAD
+=======
+- interrupt-parent: the phandle for the interrupt controller
+>>>>>>> lkd/master
 - interrupts: touch controller interrupt
 
 Example:
