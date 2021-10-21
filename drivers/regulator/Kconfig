@@ -820,7 +820,8 @@ config REGULATOR_PCF50633
 	 on PCF50633
 
 config REGULATOR_PFUZE100
-	tristate "Freescale PFUZE100/200/3000/3001 regulator driver"
+	tristate "Freescale PFUZE100/200/3000/3001 regulator driver" 
+	help
 	 Say Y here to support the voltage regulators and convertors
 	 on PCF50633
 
